@@ -16,9 +16,12 @@ class log():
         self.id = None
         self.log_list = []
         self.log_list_size = 0
+        self.conn = sqlite3.connect(self.db_file)
+        self.conn.execute('PRAGMA synchronous = OFF')
+#         cs = conn.cursor()
 
     def add_log(self, time, thread_id, level, clazz, msg, short_clazz):
-        if self.log_list_size <= 5000:
+        if self.log_list_size <= 50000:
             item = {}
             item["time"] = time
             item["thread_id"] = thread_id.strip()
@@ -29,17 +32,15 @@ class log():
             self.log_list_size += 1
             self.log_list.append(item)
         else:
-            conn = sqlite3.connect(self.db_file)
-            cs = conn.cursor()
-            for l in self.log_list:
-                cs.execute("insert into log (time,thread_id,level,clazz,msg,short_clazz) values(?,?,?,?,?,?)",
-                           (l["time"], l["thread_id"], l["level"], l["clazz"], l["msg"], l["short_clazz"]))
-            conn.commit()
+            #             for l in self.log_list:
+            self.conn.executemany("insert into log (time,thread_id,level,clazz,msg,short_clazz) values(?,?,?,?,?,?)",
+                                  [(l["time"], l["thread_id"], l["level"], l["clazz"], l["msg"], l["short_clazz"]) for l in self.log_list])
+            self.conn.commit()
             self.log_list.clear()
             self.log_list_size = 0
 
     def flush_insert(self):
-        self.log_list_size = 5001
+        self.log_list_size = 50001
         self.add_log(None, None, None, None, None, None)
 
     def delete_all(self):
