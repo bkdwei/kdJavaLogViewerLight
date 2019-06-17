@@ -19,9 +19,13 @@ class kdJavaLogViewerLight_ui(Window):
         self.query_layout.addWidget(self.pb_open_file, 0, 0)
         self.Label_0 = Label('编码格式', self.query_layout)
         self.query_layout.addWidget(self.Label_0, 0, 3)
-        self.le_encoding = LineEdit(
-            'UTF-8', self.query_layout)
-        self.query_layout.addWidget(self.le_encoding, 0, 4)
+#         self.le_encoding = LineEdit(
+#             'UTF-8', self.query_layout)
+        self.cb_encoding = ComboBox(self.query_layout)
+        self.query_layout.addWidget(self.cb_encoding, 0, 4)
+        self.cb_encoding.addItems(
+            ["UTF-8", "GB2312", "GBK", ""])
+        self.cb_encoding.setCurrentIndex(0)
         self.pb_query = PushButton(
             '查询', self.query_layout)
         self.query_layout.addWidget(self.pb_query, 0, 5)

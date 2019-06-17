@@ -8,9 +8,8 @@ import sys, time
 '''
 from os import environ
 from os.path import expanduser, join
-import sys
 import time
-from tkinter.filedialog import LoadFileDialog, asksaveasfilename
+from tkinter.filedialog import LoadFileDialog
 
 from .exception_handler import set_global_callback
 from .fileutil import check_and_create_sqlite_file
@@ -28,7 +27,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
         Constructor
         '''
         super().__init__()
-#         set_global_callback(self)
+        set_global_callback(self)
 
         self.last_dir = expanduser("~")
         check_and_create_sqlite_file(
@@ -58,7 +57,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             self.showMessage("")
             begin_time = time.time()
             i = 1
-            encoding = self.le_encoding.text().strip()
+            encoding = self.cb_encoding.currentText().strip()
             f = None
             if encoding == "":
                 f = open(selected_file, "r")
