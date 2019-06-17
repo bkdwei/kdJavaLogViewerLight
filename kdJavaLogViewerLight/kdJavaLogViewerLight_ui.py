@@ -1,5 +1,6 @@
 
 from kdGUI import *
+from tkinter.constants import NO
 
 
 class kdJavaLogViewerLight_ui(Window):
@@ -18,7 +19,8 @@ class kdJavaLogViewerLight_ui(Window):
         self.query_layout.addWidget(self.pb_open_file, 0, 0)
         self.Label_0 = Label('编码格式', self.query_layout)
         self.query_layout.addWidget(self.Label_0, 0, 3)
-        self.le_encoding = LineEdit('', self.query_layout)
+        self.le_encoding = LineEdit(
+            'UTF-8', self.query_layout)
         self.query_layout.addWidget(self.le_encoding, 0, 4)
         self.pb_query = PushButton(
             '查询', self.query_layout)
@@ -28,14 +30,14 @@ class kdJavaLogViewerLight_ui(Window):
 
         self.Label_0 = Label('开始时间', self.query_layout)
         self.query_layout.addWidget(self.Label_0, 1, 0)
-        self.LineEdit_0 = LineEdit(
-            '', self.query_layout)
-        self.query_layout.addWidget(self.LineEdit_0, 1, 1)
+        self.te_start = LineEdit(
+            '00:00:00', self.query_layout)
+        self.query_layout.addWidget(self.te_start, 1, 1)
         self.Label_1 = Label('结束时间', self.query_layout)
         self.query_layout.addWidget(self.Label_1, 1, 3)
-        self.LineEdit_1 = LineEdit(
-            '', self.query_layout)
-        self.query_layout.addWidget(self.LineEdit_1, 1, 4)
+        self.te_end = LineEdit(
+            '00:00:00', self.query_layout)
+        self.query_layout.addWidget(self.te_end, 1, 4)
 
 #         第三行
         self.Label_2 = Label('线程号前缀', self.query_layout)
@@ -57,12 +59,12 @@ class kdJavaLogViewerLight_ui(Window):
         self.Label_5 = Label('关键字', self.query_layout)
         self.query_layout.addWidget(self.Label_5, 3, 3)
         self.le_keyword = LineEdit(
-            '', self.query_layout)
+            '开始发送', self.query_layout)
         self.query_layout.addWidget(self.le_keyword, 3, 4)
 
         self.hl_result = HorizontalLayout('结果', self)
-        self.addWidget(self.hl_result)
-        self.le_result = LineEdit('', self.hl_result)
+        self.addWidget(self.hl_result, expand=YES)
+        self.le_result = Text(self.hl_result)
         self.hl_result.addWidget(self.le_result)
 
 
