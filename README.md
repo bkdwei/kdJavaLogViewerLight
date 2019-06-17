@@ -1,0 +1,2 @@
+# kdJavaLogViewerLight
+使用kdGUI开发的java日志查看器
