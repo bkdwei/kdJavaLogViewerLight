@@ -1,0 +1,336 @@
+{
+    "Window": {
+        "properties": {
+            "objectName": {
+                "value": "MainWindow"
+            }
+        },
+        "children": [
+            {
+                "HorizontalLayout": {
+                    "properties": {
+                        "objectName": {
+                            "value": "query_layout"
+                        },
+                        "text": {
+                            "value": "导入和查询"
+                        }
+                    },
+                    "children": [
+                        {
+                            "PushButton": {
+                                "properties": {
+                                    "takefocus": {
+                                        "type": "list",
+                                        "value": 1
+                                    },
+                                    "state": {
+                                        "type": "list",
+                                        "value": "active"
+                                    },
+                                    "width": {
+                                        "value": 10
+                                    },
+                                    "weight": {
+                                        "value": 0
+                                    },
+                                    "text": {
+                                        "value": "打开日志文件"
+                                    },
+                                    "command": {
+                                        "value": "None"
+                                    },
+                                    "objectName": {
+                                        "value": "pb_open_file"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_0"
+                                    },
+                                    "text": {
+                                        "value": "编码格式"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_encoding"
+                                    },
+                                    "text": {
+                                        "value": ""
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "PushButton": {
+                                "properties": {
+                                    "takefocus": {
+                                        "type": "list",
+                                        "value": 1
+                                    },
+                                    "state": {
+                                        "type": "list",
+                                        "value": "active"
+                                    },
+                                    "width": {
+                                        "value": 10
+                                    },
+                                    "weight": {
+                                        "value": 0
+                                    },
+                                    "text": {
+                                        "value": "查询"
+                                    },
+                                    "command": {
+                                        "value": "None"
+                                    },
+                                    "objectName": {
+                                        "value": "pb_query"
+                                    }
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "HorizontalLayout": {
+                    "properties": {
+                        "objectName": {
+                            "value": "hl_result"
+                        },
+                        "text": {
+                            "value": "结果"
+                        }
+                    },
+                    "children": [
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_result"
+                                    },
+                                    "text": {
+                                        "value": ""
+                                    }
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "HorizontalLayout": {
+                    "properties": {
+                        "objectName": {
+                            "value": "HorizontalLayout_1"
+                        },
+                        "text": {
+                            "value": ""
+                        }
+                    },
+                    "children": [
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_0"
+                                    },
+                                    "text": {
+                                        "value": "开始时间"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "LineEdit_0"
+                                    },
+                                    "text": {
+                                        "value": "LineEdit_0"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_1"
+                                    },
+                                    "text": {
+                                        "value": "结束时间"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "LineEdit_1"
+                                    },
+                                    "text": {
+                                        "value": "LineEdit_1"
+                                    }
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "HorizontalLayout": {
+                    "properties": {
+                        "objectName": {
+                            "value": "HorizontalLayout_2"
+                        },
+                        "text": {
+                            "value": ""
+                        }
+                    },
+                    "children": [
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_2"
+                                    },
+                                    "text": {
+                                        "value": "线程号前缀"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_prefex"
+                                    },
+                                    "text": {
+                                        "value": "T"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_3"
+                                    },
+                                    "text": {
+                                        "value": "线程号"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_thread"
+                                    },
+                                    "text": {
+                                        "value": "le_thread"
+                                    }
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "HorizontalLayout": {
+                    "properties": {
+                        "objectName": {
+                            "value": "HorizontalLayout_3"
+                        },
+                        "text": {
+                            "value": ""
+                        }
+                    },
+                    "children": [
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_4"
+                                    },
+                                    "text": {
+                                        "value": "方法"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_method"
+                                    },
+                                    "text": {
+                                        "value": ""
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "Label": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "Label_5"
+                                    },
+                                    "text": {
+                                        "value": "关键字"
+                                    }
+                                },
+                                "children": []
+                            }
+                        },
+                        {
+                            "LineEdit": {
+                                "properties": {
+                                    "objectName": {
+                                        "value": "le_keyword"
+                                    },
+                                    "text": {
+                                        "value": "LineEdit_5"
+                                    }
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
