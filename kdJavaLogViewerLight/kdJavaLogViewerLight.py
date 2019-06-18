@@ -39,12 +39,14 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
 
     def init_ui(self):
 #         self.cb_keyword.addItems(['开始发送', "led显示信息", "确认上线", ""])
-        self.cb_keyword.setCurrentIndex(0)
         self.config = load_josn_config(self.__class__.__name__)
         if self.config and "keyword"  in self.config:
             for word in self.config["keyword"] :
-                if word:
+                if  word:
                     self.cb_keyword.addItem(word)
+                else :
+                    self.cb_keyword.addItem("")
+            self.cb_keyword.setCurrentIndex(0)
         else:
             self.config = {"keyword" :[]}
 
@@ -68,6 +70,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             self.config["keyword"].append(new_value)
             save_json_config(self.__class__.__name__, self.config)
             self.showMessage("新增关键字成功，" + new_value)
+            self.cb_keyword.addItem(new_value)
 
     def del_keyword(self):
         curText = self.cb_keyword.currentText()
