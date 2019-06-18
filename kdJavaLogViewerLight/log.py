@@ -12,36 +12,37 @@ class log():
     def __init__(self):
         super().__init__()
         self.db_file = join(expanduser(
-            "~"), ".config/kdJavaLogViewer/data.db")
+            "~"), ".config/kdJavaLogViewerLight/data.db")
         self.id = None
         self.log_list = []
         self.log_list_size = 0
         self.conn = sqlite3.connect(self.db_file)
         self.conn.execute('PRAGMA synchronous = OFF')
+#         self.conn.execute('PRAGMA journal_mode=WAL')
 #         cs = conn.cursor()
 
     def add_log(self, time, thread_id, level, clazz, msg, short_clazz):
         if self.log_list_size <= 50000:
-            item = {}
-            item["time"] = time
-            item["thread_id"] = thread_id.strip()
-            item["level"] = level.strip()
-            item["clazz"] = clazz
-            item["short_clazz"] = short_clazz
-            item["msg"] = msg
+#             item = {}
+#             item["time"] = time
+#             item["thread_id"] = thread_id.strip()
+#             item["level"] = level.strip()
+#             item["clazz"] = clazz
+#             item["short_clazz"] = short_clazz
+#             item["msg"] = msg
             self.log_list_size += 1
-            self.log_list.append(item)
+            self.log_list.append((time, thread_id, level, clazz, msg, short_clazz))
         else:
             #             for l in self.log_list:
             self.conn.executemany("insert into log (time,thread_id,level,clazz,msg,short_clazz) values(?,?,?,?,?,?)",
-                                  [(l["time"], l["thread_id"], l["level"], l["clazz"], l["msg"], l["short_clazz"]) for l in self.log_list])
-            self.conn.commit()
+                                  self.log_list)
             self.log_list.clear()
             self.log_list_size = 0
 
     def flush_insert(self):
         self.log_list_size = 50001
         self.add_log(None, None, None, None, None, None)
+        self.conn.commit()
 
     def delete_all(self):
         self.run_sql("delete from log ")

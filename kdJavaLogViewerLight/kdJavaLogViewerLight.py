@@ -29,9 +29,9 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
         super().__init__()
         set_global_callback(self)
 
-        self.last_dir = expanduser("~")
+        self.last_dir = None
         check_and_create_sqlite_file(
-            join(expanduser("~"), ".config/kdJavaLogViewer/data.db"))
+            join(expanduser("~"), ".config/kdJavaLogViewerLight/data.db"))
         self.log = log()
         self.bindEvent()
 
@@ -132,10 +132,11 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
                 self.showMessage("查询结果为空")
                 return
             self.log_list = log_list
-            msg = ""
-            for item in log_list:
-                msg = msg + item[0] + " " + item[1] + " " + \
-                    item[2] + " [" + item[3] + "] " + item[4]
+#             msg = ""
+#             for item in log_list:
+#                 msg = msg + item[0] + " " + item[1] + " " + \
+#                     item[2] + " [" + item[3] + "] " + item[4]
+            msg = "\n".join([" ".join([item[0] , item[1] , item[2], item[3], item[4]]) for item in log_list])
             self.le_result.clear()
             self.le_result.setText(msg)
             self.showMessage("查询 " + keyword + " 成功")
