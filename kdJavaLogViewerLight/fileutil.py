@@ -1,6 +1,7 @@
 # coding: utf-8
+import json
 from os import makedirs
-from os.path import dirname, realpath, join, exists
+from os.path import dirname, realpath, join, exists, expanduser
 from shutil import copyfile
 
 cur_dir = dirname(realpath(__file__))
@@ -31,3 +32,20 @@ def check_and_create_sqlite_file(config_path):
     if not exists(config_path) :
         check_and_create_dir(dirname(config_path))
         copyfile(get_file_realpath("../data/data.db"), config_path)
+
+
+def load_josn_config(project_name):
+    config_file_path = join(expanduser("~"), ".config", project_name, "config.json")
+    if not exists(config_file_path):
+        return
+    with open(config_file_path, "r", encoding="utf-8") as f:
+        content = f.read().strip()
+        if content != "":
+            return json.loads(content)
+
+
+def save_json_config(project_name, obj):
+    config_file_path = join(expanduser("~"), ".config", project_name, "config.json")
+    check_and_create_file(config_file_path)
+    with open(config_file_path, "w", encoding="utf-8") as f:
+        f.write(json.dumps(obj, ensure_ascii=False, indent=4))        

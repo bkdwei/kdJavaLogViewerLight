@@ -1,6 +1,7 @@
 
-from kdGUI import *
 from tkinter.constants import NO
+
+from kdGUI import *
 
 
 class kdJavaLogViewerLight_ui(Window):
@@ -26,9 +27,6 @@ class kdJavaLogViewerLight_ui(Window):
         self.cb_encoding.addItems(
             ["UTF-8", "GB2312", "GBK", ""])
         self.cb_encoding.setCurrentIndex(0)
-        self.pb_query = PushButton(
-            '查询', self.query_layout)
-        self.query_layout.addWidget(self.pb_query, 0, 5)
 
 #         第二行
 
@@ -42,6 +40,9 @@ class kdJavaLogViewerLight_ui(Window):
         self.te_end = LineEdit(
             '00:00:00', self.query_layout)
         self.query_layout.addWidget(self.te_end, 1, 4)
+        self.pb_add_keyword = PushButton(
+            '新增关键字', self.query_layout)
+        self.query_layout.addWidget(self.pb_add_keyword, 1, 5)
 
 #         第三行
         self.Label_2 = Label('线程号前缀', self.query_layout)
@@ -53,6 +54,9 @@ class kdJavaLogViewerLight_ui(Window):
         self.le_thread = LineEdit(
             '', self.query_layout)
         self.query_layout.addWidget(self.le_thread, 2, 4)
+        self.pb_del_keyword = PushButton(
+            '删除关键字', self.query_layout)
+        self.query_layout.addWidget(self.pb_del_keyword, 2, 5)
 
 #         第四行
         self.Label_4 = Label('方法', self.query_layout)
@@ -62,13 +66,16 @@ class kdJavaLogViewerLight_ui(Window):
         self.query_layout.addWidget(self.le_method, 3, 1)
         self.Label_5 = Label('关键字', self.query_layout)
         self.query_layout.addWidget(self.Label_5, 3, 3)
-        self.le_keyword = LineEdit(
-            '开始发送', self.query_layout)
-        self.query_layout.addWidget(self.le_keyword, 3, 4)
+        self.cb_keyword = ComboBox(self.query_layout)
+        self.query_layout.addWidget(self.cb_keyword, 3, 4)
+        self.pb_query = PushButton(
+            '查询', self.query_layout)
+        self.query_layout.addWidget(self.pb_query, 3, 5)
 
         self.hl_result = HorizontalLayout('结果', self)
         self.addWidget(self.hl_result, expand=YES)
         self.le_result = Text(self.hl_result)
+        self.le_result.addVerticalScrollbar()
         self.hl_result.addWidget(self.le_result)
 
 

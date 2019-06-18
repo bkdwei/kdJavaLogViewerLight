@@ -10,9 +10,10 @@ from os import environ
 from os.path import expanduser, join
 import time
 from tkinter.filedialog import LoadFileDialog
+from tkinter.simpledialog import askstring
 
 from .exception_handler import set_global_callback
-from .fileutil import check_and_create_sqlite_file
+from .fileutil import check_and_create_sqlite_file, load_josn_config, save_json_config
 from .kdJavaLogViewerLight_ui import kdJavaLogViewerLight_ui
 from .log import log
 
@@ -33,7 +34,19 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
         check_and_create_sqlite_file(
             join(expanduser("~"), ".config/kdJavaLogViewerLight/data.db"))
         self.log = log()
+        self.init_ui()
         self.bindEvent()
+
+    def init_ui(self):
+#         self.cb_keyword.addItems(['开始发送', "led显示信息", "确认上线", ""])
+        self.cb_keyword.setCurrentIndex(0)
+        self.config = load_josn_config(self.__class__.__name__)
+        if self.config and "keyword"  in self.config:
+            for word in self.config["keyword"] :
+                if word:
+                    self.cb_keyword.addItem(word)
+        else:
+            self.config = {"keyword" :[]}
 
     #             获取上一次打开的目录
     def get_last_dir(self):
@@ -45,6 +58,25 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
     def bindEvent(self):
         self.pb_open_file.click(self.on_pb_open_clicked)
         self.pb_query.click(self.on_pb_query_clicked)
+        self.pb_del_keyword.click(self.del_keyword)
+        self.pb_add_keyword.click(self.add_keyword)
+    
+    def add_keyword(self):
+        new_value = askstring(
+            "新增关键字", "请输入你要保存的关键字")
+        if new_value:
+            self.config["keyword"].append(new_value)
+            save_json_config(self.__class__.__name__, self.config)
+            self.showMessage("新增关键字成功，" + new_value)
+
+    def del_keyword(self):
+        curText = self.cb_keyword.currentText()
+        if curText in self.config["keyword"] :
+            self.config["keyword"].remove(self.cb_keyword.currentText())
+            save_json_config(self.__class__.__name__, self.config)
+            self.showMessage("删除关键字成功，" + curText)
+        else:
+            self.showMessage("关键字不在缓存中，" + curText)
 
     def on_pb_open_clicked(self):
         #         hour, ok = QInputDialog.getInt(
@@ -108,11 +140,12 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
 
     def on_pb_query_clicked(self):
         self.showMessage("")
+        begin_time = time.time()
         thread_id = self.le_prefex.text().strip() + \
             self.le_thread.text().strip()
         if thread_id == "T":
             thread_id = None
-        keyword = self.le_keyword.text().strip()
+        keyword = self.cb_keyword.currentText().strip()
         short_clazz = self.le_method.text().strip()
         start_time = self.te_start.text()
         end_time = self.te_end.text()
@@ -136,13 +169,15 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
 #             for item in log_list:
 #                 msg = msg + item[0] + " " + item[1] + " " + \
 #                     item[2] + " [" + item[3] + "] " + item[4]
-            msg = "\n".join([" ".join([item[0] , item[1] , item[2], item[3], item[4]]) for item in log_list])
+            msg = "".join([" ".join([item[0] , item[1] , item[2], item[3], item[4]]) for item in log_list])
             self.le_result.clear()
             self.le_result.setText(msg)
-            self.showMessage("查询 " + keyword + " 成功")
+            end_time = time.time()
+            self.showMessage("查询 " + keyword + " 成功，共" + str(len(log_list)) + "条，耗时" + str(end_time - begin_time) + "秒") 
 
 
 def main():
     app = kdJavaLogViewerLight()
     app.showMaximized()
     app.run()
+
