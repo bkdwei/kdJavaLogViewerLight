@@ -10,7 +10,9 @@ from os import environ
 from os.path import expanduser, join
 import time
 from tkinter.filedialog import LoadFileDialog
-from tkinter.simpledialog import askstring
+from tkinter.simpledialog import askstring, askinteger
+
+from kdGUI import *
 
 from .exception_handler import set_global_callback
 from .fileutil import check_and_create_sqlite_file, load_josn_config, save_json_config
@@ -22,6 +24,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
     '''
     classdocs
     '''
+    show_import_info = kdSignal()
 
     def __init__(self):
         '''
@@ -62,6 +65,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
         self.pb_query.click(self.on_pb_query_clicked)
         self.pb_del_keyword.click(self.del_keyword)
         self.pb_add_keyword.click(self.add_keyword)
+        self.show_import_info.connect(self.showMessage)
     
     def add_keyword(self):
         new_value = askstring(
@@ -107,6 +111,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             short_clazz = None
             msg = None
             l = f.readline()
+
             while l:
                 #                     不以时间开头的行，默认不是一行
                 if(l[0] != '2'):
@@ -132,6 +137,9 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
                     msg = ll[1][2:]
                     l = f.readline()
                 i += 1
+                
+                if i % 1000 == 0:
+                    self.show_import_info.emit(l)
             if log_time:
                 self.log.add_log(
                     log_time, thread_id, level, clazz, msg, short_clazz)
@@ -139,6 +147,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             end_time = time.time()
             self.showMessage(
                 "导入日志成功，耗时" + str(end_time - begin_time) + "秒，行数:" + str(i))
+            print("导入结束")
             f.close()
 
     def on_pb_query_clicked(self):
@@ -148,7 +157,9 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             self.le_thread.text().strip()
         if thread_id == "T":
             thread_id = None
-        keyword = self.cb_keyword.currentText().strip()
+        keyword = self.cb_keyword.currentText()
+        if keyword :
+            keyword = keyword.strip()
         short_clazz = self.le_method.text().strip()
         start_time = self.te_start.text()
         end_time = self.te_end.text()
@@ -176,6 +187,8 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             self.le_result.clear()
             self.le_result.setText(msg)
             end_time = time.time()
+            if not keyword:
+                keyword = ""
             self.showMessage("查询 " + keyword + " 成功，共" + str(len(log_list)) + "条，耗时" + str(end_time - begin_time) + "秒") 
 
 

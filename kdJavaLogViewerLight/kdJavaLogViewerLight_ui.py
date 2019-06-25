@@ -12,7 +12,8 @@ class kdJavaLogViewerLight_ui(Window):
         self.setTitle("kdJava日志查看器")
 
         self.query_layout = GridLayout('导入和查询', self)
-        self.addWidget(self.query_layout)
+#         expand1(self.query_layout)
+#         self.addWidget(self.query_layout)
 
 #         第一行
         self.pb_open_file = PushButton(
@@ -73,10 +74,10 @@ class kdJavaLogViewerLight_ui(Window):
         self.query_layout.addWidget(self.pb_query, 3, 5)
 
         self.hl_result = HorizontalLayout('结果', self)
-        self.addWidget(self.hl_result, expand=YES)
+#         self.addWidget(self.hl_result, expand=YES)
         self.le_result = Text(self.hl_result)
-        self.le_result.addVerticalScrollbar()
-        self.hl_result.addWidget(self.le_result)
+#         self.le_result.addVerticalScrollbar()
+#         self.hl_result.addWidget(self.le_result)
 
 
 if __name__ == '__main__':
