@@ -88,6 +88,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
     def on_pb_open_clicked(self):
         #         hour, ok = QInputDialog.getInt(
         # self, "导入指定小时之后的日志", "点击取消将导入全部日志。", 0, 0, 24, 1)
+        hour = askinteger("导入指定小时之后的日志", "点击取消将导入全部日志")
         fd = LoadFileDialog(self)
         selected_file = fd.go(
             dir_or_file=self.get_last_dir(), pattern="*.log")
@@ -109,7 +110,7 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
             level = None
             clazz = None
             short_clazz = None
-            msg = None
+            msg = ""
             l = f.readline()
 
             while l:
@@ -120,9 +121,9 @@ class kdJavaLogViewerLight(kdJavaLogViewerLight_ui):
                     l = f.readline()
                     continue
                 # 跳过指定时间之前的日志
-#                 elif int(l[11:13]) < hour and ok:
-#                     l = f.readline()
-#                     continue
+                elif hour and int(l[11:13]) < hour:
+                    l = f.readline()
+                    continue
                 else:
                     #                         print(log_time, thread_id, level, clazz, msg)
                     if log_time:
