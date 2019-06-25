@@ -9,9 +9,11 @@ class kdJavaLogViewerLight_ui(Window):
     def __init__(self):
         super().__init__()
 
-        self.setTitle("kdJava日志查看器")
+        self.setTitle("kdJava日志查看器5")
 
         self.query_layout = GridLayout('导入和查询', self)
+        self.query_layout.pack_forget()
+        self.query_layout.pack(fill=BOTH)
 #         expand1(self.query_layout)
 #         self.addWidget(self.query_layout)
 
@@ -76,7 +78,7 @@ class kdJavaLogViewerLight_ui(Window):
         self.hl_result = HorizontalLayout('结果', self)
 #         self.addWidget(self.hl_result, expand=YES)
         self.le_result = Text(self.hl_result)
-#         self.le_result.addVerticalScrollbar()
+        self.le_result.addVerticalScrollbar()
 #         self.hl_result.addWidget(self.le_result)
 
 
